@@ -1,0 +1,70 @@
+﻿<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml" c>
+	<head>
+			<meta charset="UTF-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>主页</title>
+		<link th:href="@{/bootstrap/css/bootstrap.css}" href="../static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+		<link th:href="@{/bootstrap/css/bootstrap-theme.css}" href="../static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+			<link th:href="@{/bootstrap/css/home.css}" href="../static/bootstrap/css/home.css" rel="stylesheet"/>
+		<script type="text/javascript" th:src="@{/bootstrap/js/jquery-2.1.1.min.js}" src="../static/bootstrap/js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.js}" src="../static/bootstrap/js/bootstrap.js"></script>
+	</head>
+<body >
+<div class="main">
+	<nav class="navbar navbar-default" role="navigation" style="margin-bottom: 0px">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<img th:src="@{/bootstrap/img/logo2.png}" >
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> <strong id="loginName"></strong></a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> <strong>注销</strong></a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="row content">
+		<div class="col-md-2 menu" >
+			<ul id="menus">
+				<li><i class="glyphicon glyphicon-th-list"></i> <strong>角色管理</strong></li>
+				<li><i class="glyphicon glyphicon-tasks"></i> <strong>角色管理</strong></li>
+			</ul>
+
+		</div>
+		<div class="col-md-10" >
+			<ol class="breadcrumb">
+				<li><a href="#">主页</a></li>
+			</ol>
+
+		</div>
+	</div>
+</div>
+</body>
+<script th:inline="javascript">
+    var user = [[${user}]];
+    var menus = [[${menus}]];
+	$("#loginName").html(user.name);
+    console.log(user);
+    console.log(menus);
+    $("#menus").html("");
+    var lis = "";
+    menus.forEach(function(item,index){
+        if(item.checked){
+            lis += "<li class='active' onclick='menuClick("+index+",\""+item.path+"\")'><i class='"+item.icon+"'></i> <strong>"+item.name+"</strong></li>";
+		}else {
+            lis += "<li onclick='menuClick("+index+",\""+item.path+"\")'><i class='"+item.icon+"'></i> <strong>"+item.name+"</strong></li>";
+		}
+    });
+    $("#menus").html(lis);
+
+    function menuClick(index,path){
+       /* $("#menus li").removeClass("active");
+        $("#menus li").eq(index).addClass("active");*/
+        console.log(path);
+        console.log(index);
+        window.location.href=path;
+
+	}
+</script>
+</html>
